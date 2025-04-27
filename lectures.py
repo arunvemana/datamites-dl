@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 import requests
@@ -41,5 +42,24 @@ def fetch_lectures(session: requests.Session, course_url: str) -> RuntimeError |
             "Number_of_sessions": what_if_no_data(total_, "0 lectures"),
             "total_time": what_if_no_data(time_, "0h 0m")
         }
+        # get an individual lectures link in the group
+        lecture_list = []
+        lecture_objs = group.find_all("li",class_="lecture has-preview")
+        for lecture in lecture_objs:
+            span_ = lecture.find("span",class_="lecture-title")
+            span_time = lecture.find("span",class_="lecture-time")
+            if span_ and span_.has_attr('onclick'):
+                click_value = span_['onclick']
+                # get a link to download
+                match = re.search(r"showVideo\('([^']+)'\)",click_value)
+                if match:
+                    url = match.group(1)
+                    l_title = span_.get_text(strip=True)
+                    lecture_list.append({'lecture_title':l_title,
+                                         'url':url,
+                                         'duration':span_time.get_text(strip=True)}
+                                        )
+        topic["lectures"] = lecture_list
+
         topics.append(topic)
     return topics

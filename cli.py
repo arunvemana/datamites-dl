@@ -2,7 +2,7 @@ from InquirerPy import inquirer
 from auth import Authenticator
 from courses import fetch_courses
 from lectures import fetch_lectures
-
+from download import download_video
 
 def main():
     """
@@ -51,6 +51,24 @@ def main():
         print(f"\n You selected: {select_l["title"]}")
         print(f" 📁 Lectures: {select_l["Number_of_sessions"]}")
         print(f" ⏳ Duration: {select_l["total_time"]}")
+
+        # showcase of individual session of the lecture group.
+        indiv_select_l = [
+            {"name": f"🗿 {lec['lecture_title']} - ⌛ {lec['duration']}", "value": lec}
+            for lec in select_l["lectures"]
+        ]
+        select_video = inquirer.select(message="\n Choose a lecture video",
+                                       choices=indiv_select_l,
+                                       pointer="💨",
+                                       instruction=" Arrow keys ⬆️⬇️ or Navigate keys and Press ENTER for selection"
+                                       ).execute()
+        # final detail show to download
+        print(f"selected lecture is {select_video['lecture_title']}")
+        print(f"video url is {select_video['url']}")
+        print(f"video duration is {select_video['duration']}")
+
+        # download
+        download_video(select_video['url'],filename=select_video['lecture_title'])
     else:
         print("\n No lectures was found")
 
