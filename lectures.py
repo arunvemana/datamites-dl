@@ -11,6 +11,7 @@ def fetch_lectures(session: requests.Session, course_url: str) -> RuntimeError |
     :param course_url: Select the course details url
     :return: -> list[dict]
     """
+    # general headers to simulate request coming from browser.
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.5615.50 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -22,7 +23,7 @@ def fetch_lectures(session: requests.Session, course_url: str) -> RuntimeError |
     if not course_url.startswith("https"):
         return RuntimeError("Unable to fetch Url of the course")
     try:
-        response = session.get(course_url,headers=headers,timeout=15)
+        response = session.get(course_url, headers=headers, timeout=15)
         response.raise_for_status()
     except requests.exceptions.ConnectionError:
         return RuntimeError("Something is wrong with connection")
@@ -32,7 +33,7 @@ def fetch_lectures(session: requests.Session, course_url: str) -> RuntimeError |
     topics = []
     what_if_no_data = lambda param_, param_m: param_.get_text(strip=True) if param_ else param_m
     for group in group_lectures:
-        title_ = group.find("div", class_='lecture-group-title')
+        title_ = group.find("div", class_='lecture-group-title').find("div", class_="title")
         total_ = group.find("span", class_='total-lectures')
         time_ = group.find("span", class_='total-time')
         topic = {
