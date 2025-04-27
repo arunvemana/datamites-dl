@@ -2,3 +2,4 @@ requests
 beautifulsoup4==4.13.4
 InquirerPy==0.3.2
 tqdm==4.67.1
+yaspin==2.5.0

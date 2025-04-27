@@ -3,8 +3,10 @@ from typing import Any
 
 import requests
 from bs4 import BeautifulSoup
+from util import loading_spinner
 
 
+@loading_spinner(text="Fetching the lectures....")
 def fetch_lectures(session: requests.Session, course_url: str) -> RuntimeError | list[Any]:
     """
     Fetch the course syllabus total topic and total number of classes and time of each session.

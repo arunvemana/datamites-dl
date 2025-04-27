@@ -2,7 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from auth import Authenticator
 from typing import Dict,List
+from util import loading_spinner
 
+@loading_spinner(text="fetching Courses")
 def fetch_courses(session:requests.Session) -> List[Dict]:
     """
     Get the list of courses details from the course page
