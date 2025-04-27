@@ -2,8 +2,8 @@ import os
 
 
 # Environment variables
-os.environ['ENV_USR'] = 'arunvemana@outlook.com'
-os.environ['ENV_PASS'] = 'Welcome3#'
+os.environ['ENV_USR'] = ''
+os.environ['ENV_PASS'] = ''
 
 USERNAME = os.getenv('ENV_USR')
 PASSWORD = os.getenv('ENV_PASS')
