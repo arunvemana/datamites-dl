@@ -62,7 +62,7 @@ pip install -r requirements.txt
 
 ## 📥 Usage
 
-1. Update `auth.py` with your Datamites credentials:
+1. Update `config.py` with your Datamites credentials:
    ```python
    USERNAME = "your.email@gmail.com"
    PASSWORD = "supersecret"
