@@ -48,9 +48,9 @@ def main():
                                    instruction=" Arrow keys ⬆️⬇️ or Navigate keys and Press ENTER for selection"
                                    ).execute()
 
-        print(f"\n You selected: {select_l["title"]}")
-        print(f" 📁 Lectures: {select_l["Number_of_sessions"]}")
-        print(f" ⏳ Duration: {select_l["total_time"]}")
+        print(f"\n You selected: {select_l['title']}")
+        print(f" 📁 Lectures: {select_l['Number_of_sessions']}")
+        print(f" ⏳ Duration: {select_l['total_time']}")
 
         # showcase of individual session of the lecture group.
         indiv_select_l = [
